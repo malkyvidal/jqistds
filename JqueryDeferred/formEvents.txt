@@ -1,0 +1,76 @@
+﻿Form Events
+
+Forms are a very standard way of getting input from the user and as such are the next obvious thing to 
+consider after mouse and keyboard events. 
+There are a set of events associated with the movement of the focus from one element to another.
+ The element that has the focus is the one that user input is directed at and this is what makes it important. 
+
+ focus and blur
+The focus event fires when an element gets the focus and the blur event fires when it loses it.
+ In modern browsers any element can fire the focus and blur event even if it isn't within a form element. These events don't bubble up to parents.
+focusin and focusout
+These are bubbling versions of focus and blur. That is an element will receive this event if any of its children 
+gets or loses the focus. 
+There are two events associated with detecting when the user has changed data in a form:
+
+change
+The change event is fired when the value of an input, textarea or select element changes. 
+For checkboxes and radio buttons the event is fired at once so that you can process the users new selection. 
+For input and textarea the event is only fired after the element loses focus. 
+The reason for this is that the user may well be editing and changing what 
+they are entering and rather than fire a change even for each keystroke
+ the system waits until the user moves to another field in the form before informing you of the change.
+
+
+ submit
+The final form event is submit. This is fired when the user submits the form.
+ Generally you use an event handler to make any final validation needed but
+  always remember that validation is best performed early if at all possible. 
+  It is also used to fire the submit action on the form so that you can use Elements other than a submit button. 
+
+
+
+  Browser Events
+
+There are only two browser generated events that jQuery specifically
+ handles related to the viewing window size and scrolling Elements
+
+ resize
+The resize even is fired whenever the user resizes the browser window.
+ Obviously the purpose of this event is to give you the opportunity to modify the layout or 
+ sometimes to restrict the size change. The only real problem with handling resize is that different browsers
+  fire the event in different ways. Some fire the event every time the user adjusts the size of the window
+   and other only fire it once at the end of the resize. Sometimes this doesn't cause any difficulty because
+    the resize handler doesn't do very much work. However in many cases the resize event handler has 
+	a lot of work to do and it slows the UI down too much. The good news is that all modern browsers Firefox, Chrome, 
+	IE 11 and Edge fire the event only when the user drops the window border. 
+
+
+
+	scroll
+This event is fired on any element that has an overflow property set to scroll or auto when scroll is being used.
+ It fires no matter how the scroll has occurred - via mouse or keyboard.
+  In most cases you can allow the browser to take care of the scroll implementation but sometimes you need to intervene. 
+For example if you want to generate content as the user scrolls an element:
+
+<div id="target"
+ style="overflow: scroll; width: 200px; height: 100px;">
+#</br>
+#</br>
+#</br>
+#</br>
+#</br>
+</div>
+This starts off with just a column of hashes. When the user scrolls to see more content the scroll event is triggered and the event handler called:
+var count=0;
+$( "#target" ).scroll(function() {
+    count++;
+    $( "#target" ).append(count.toString()+ "</br>" );
+  });
+
+  In this case we simply append the value of a counter.
+A common occurrence is the use of the jQuery scrollLeft and scrolltop function within scroll event handlers
+ to discover how far the Element has been scrolled and to test for a horizontal or vertical scroll. 
+ You can also use them to set the scroll position. 
+ The positions are returned in pixels that are currently scrolled off the left or top. 
+

@@ -1,0 +1,35 @@
+﻿The Event Handler
+
+When an event handler is called in response to an event it is passed some parameters that help it work with the event. Standard JavaScript event handlers are passed an Event object which has properties determined by the type of event. jQuery provides its own Event object which is a "normalized" version of the raw JavaScript event object.
+That is the jQuery event object provides the same information independent of the browser in use. You can access the native event object via the originalEvent property and this is sometimes necessary for events that provide additional information. 
+In addition to the Event parameter the event handler is also provided with the element that the event occurred on as this. Notice that this is a raw DOM Element and if you want to use it as a jQuery object you will need to wrap it in $(this).
+There are a lot of possible event properties that you could work with depending on the type of event but there are a few that are common to all events. These are briefly described below, although a full explanation is postponed until a later section.
+There is a set of properties that tell you about the type of event and the element it occurred on:
+event.type
+gives the name of the event for example "click". 
+event.namespace
+give the namespace that was specified when the event was triggered. This is covered in the section on custom events.
+event.timeStamp
+The time that the event occurred measured in milliseconds from January 1,1970.
+event.data
+An object of custom data passed to the event handler. This is another jQuery extension of the basic event handling mechanism. 
+There are a set of properties concerned with the way the event bubbles:
+event.target
+This is the element that the event occurred on e.g. the element that the user actually clicked on. This is always the deepest or innermost element of a nested set of elements. Notice that because of event bubbling this isn't always the same as the element the event was added to.   
+event.currentTarget
+The element that the bubbling phase has reached. 
+event.delegateTarget
+The element that the event handler was attached to.
+event.relatedTarget
+Any element that is also involved in the event. This is only supplied for events where there is another element involved. For example, when a mouseout event occurs the relatedTarget is the element the mouse pointer entering. 
+event.result
+The last value returned by an event handler
+Finally there are some properties that relate to mouse and keyboard:
+event.pageX
+The mouse position relative the top left edge of the document
+event.pageY
+The mouse position relative the top left edge of the document
+event.which
+The key or mouse button that was pressed when the event occurred. This is a replacement for event.keyCode and event.charCode provided by jQuery to make working with mouse and keyboard easier. For a mouse event 1= left button, 2=middle and 3=right button. Note that scroll wheel is usually a middle button.
+event.metaKey
+True if a meta key - the Windows or Mac Command Key was pressed when the event occurred.
